@@ -1,0 +1,53 @@
+@font-face {
+    font-family: flappy;
+    src: url(FlappyBirdy.ttf);
+}
+
+body {
+    background-color:rgb(35, 39, 46);
+}
+
+h1, h4 {
+    color: white;
+    font-family: flappy, serif;
+    margin: 10px;
+}
+
+h1, h4, #gameWorld, #toggle-boxes, #light-slider {
+    user-select: none;
+    outline: none;
+    width: max-content;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#canvas-container {
+    width: 1024px;
+    display: block;
+    margin: auto;
+}
+
+#canvas-container > div {
+    width: 100px;
+}
+
+#gameWorld {
+    border-radius: 5px;
+    background-color: rgb(3, 190, 252);
+}
+
+h4 {
+    font-size: 24px;
+    margin-left: 0;
+
+}
+
+#canvas-container div {
+    display: inline-block;
+    margin-right: 50px;
+}
