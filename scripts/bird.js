@@ -1,5 +1,3 @@
-
-
 class Bird extends Entity {
     static jumpVel = -580;
     static gravity = 2000;
