@@ -60,6 +60,7 @@ class PipeManager {
 
     constructor() {
         this.centerPoint = 306; // true center
+        PipeManager.gap = 160;
 
         this.latestPipe = new Pipe(sprite("pipe_upper.png"),
             new Vec2(
