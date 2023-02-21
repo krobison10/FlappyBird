@@ -38,10 +38,26 @@ class GameEngine {
     }
 
     startInput() {
-        const getXandY = e => ({
-            x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
-            y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
-        });
+        const getXandY = e => {
+            if (e.touches && e.touches.length > 0) {
+                return {
+                    x: e.touches[0].clientX - this.ctx.canvas.getBoundingClientRect().left,
+                    y: e.touches[0].clientY - this.ctx.canvas.getBoundingClientRect().top
+                };
+            } else {
+                return {
+                    x: e.clientX - this.ctx.canvas.getBoundingClientRect().left,
+                    y: e.clientY - this.ctx.canvas.getBoundingClientRect().top
+                };
+            }
+        };
+
+        const handleTap = e => {
+            if (this.options.debugging) {
+                console.log("TAP", getXandY(e));
+            }
+            this.tap = getXandY(e);
+        }
         
         this.ctx.canvas.addEventListener("mousemove", e => {
             if (this.options.debugging) {

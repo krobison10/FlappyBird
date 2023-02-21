@@ -31,12 +31,12 @@ class Bird extends Entity {
 
     update() {
         if(!this.gameStarted) {
-            if(gameEngine.keys[' '] || gameEngine.keys['w'] || gameEngine.keys['W']) {
+            if(gameEngine.keys[' '] || gameEngine.keys['w'] || gameEngine.keys['W'] || gameEngine.tap) {
                 this.startGame();
             }
         }
         else {
-            if(gameEngine.keys[' '] || gameEngine.keys['w'] || gameEngine.keys['W']) {
+            if(gameEngine.keys[' '] || gameEngine.keys['w'] || gameEngine.keys['W'] || gameEngine.tap) {
                 if(!this.dead && !this.keyPressed) {
                     this.velocity.y = Bird.jumpVel;
                     playSound("wing");
