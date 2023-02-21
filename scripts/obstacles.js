@@ -20,8 +20,8 @@ class Pipe extends Obstacle {
     static height = 160;
     static startSpeed = 120;
     static curSpeed = 0;
-    static maxSpeed = 220;
-    static speedChange = 0.8;
+    static maxSpeed = 240;
+    static speedChange = 0.9;
     constructor(sprite, pos) {
         super(sprite, pos, new Dimension(26, 160));
         this.boundingBox =
@@ -125,5 +125,25 @@ class GroundScroll {
             this.left.pos.x = 0;
             this.right.pos.x = width;
         }
+    }
+}
+
+class Background {
+    constructor() {
+        this.setBackground();
+    }
+
+    setBackground() {
+        let pick = randomInt(4);
+        if(pick === 0) {
+            this.sprite = sprite("background_night.png");
+        }
+        else {
+            this.sprite = sprite("background_day.png");
+        }
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.sprite, 0, 0, 144, 256, 0, 0, 144 * 3, 256 * 3);
     }
 }

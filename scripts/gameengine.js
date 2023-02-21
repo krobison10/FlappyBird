@@ -104,8 +104,9 @@ class GameEngine {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
         let i = Layers.BACKGROUND;
-        this.ctx.drawImage(sprite("background.png"), 0, 0, 144, 256, 0, 0, 144 * 3, 256 * 3);
-
+        for (let j = this.entities[i].length - 1; j >= 0; j--) {
+            this.entities[i][j].draw(this.ctx);
+        }
         i = Layers.PIPES;
         for (let j = this.entities[i].length - 1; j >= 0; j--) {
             this.entities[i][j].draw(this.ctx);

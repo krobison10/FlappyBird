@@ -7,7 +7,8 @@ const height = 768;
 const global_scale = 3;
 
 declareAssets([
-	"sprites/background.png",
+	"sprites/background_day.png",
+	"sprites/background_night.png",
 	"sprites/ground.png",
 	"sprites/bird.png",
 	"sprites/pipe_upper.png",
@@ -43,6 +44,9 @@ counter.updateFn = function() {
 	this.pos.x = width / 2 - textWidth / 2;
 }
 gameEngine.addEntity(counter, Layers.UI);
+
+const background = new Background();
+gameEngine.addEntity(background, Layers.BACKGROUND);
 
 
 

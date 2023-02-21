@@ -140,6 +140,8 @@ class Bird extends Entity {
         this.score = 0;
         this.keyPressedPreviously = true;
 
+        background.setBackground();
+
         for(let pipe of gameEngine.entities[Layers.PIPES]) {
             pipe.removeFromWorld = true;
         }
