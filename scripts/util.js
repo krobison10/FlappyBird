@@ -57,3 +57,44 @@ window.requestAnimFrame = (() => {
 const getDistance = (p1, p2) => {
     return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
 };
+
+/**
+ * Represents the layers of the game engine entities.
+ */
+const Layers = {
+    BACKGROUND: 0,
+    PIPES: 1,
+    GROUND: 2,
+    BIRD: 3,
+    UI: 4
+}
+
+/**
+ * Represents a vector with an x and y component.
+ */
+class Vec2 {
+    constructor(x, y) {
+        Object.assign(this, {x, y});
+    }
+    netVelocity() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+}
+
+/**
+ * Represents a dimension containing a width and height field.
+ */
+class Dimension {
+    constructor(w, h) {
+        Object.assign(this, {w, h});
+    }
+}
+
+/**
+ * @param timeA
+ * @param timeB
+ * @returns {number} time in seconds between the two times.
+ */
+function timeInSecondsBetween(timeA, timeB) {
+    return Math.abs(timeA - timeB) / 1000;
+}

@@ -1,6 +1,6 @@
 @font-face {
     font-family: flappy;
-    src: url(FlappyBirdy.ttf);
+    src: url(BotsmaticOutline-anZg.ttf);
 }
 
 body {
@@ -27,13 +27,9 @@ h1 {
 }
 
 #canvas-container {
-    width: 1024px;
+    width: min-content;
     display: block;
     margin: auto;
-}
-
-#canvas-container > div {
-    width: 100px;
 }
 
 #gameWorld {
@@ -43,8 +39,9 @@ h1 {
 
 h4 {
     font-size: 24px;
-    margin-left: 0;
-
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #canvas-container div {

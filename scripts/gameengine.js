@@ -7,7 +7,7 @@ class GameEngine {
         this.ctx = null;
 
         // Everything that will be updated and drawn each frame
-        this.entities = [];
+        this.entities = [[], [], [], [], []];
 
         // Information on the input
         this.click = null;
@@ -15,17 +15,21 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
+        this.camera = new SceneManager(this);
+        this.addEntity(this.camera, Layers.UI);
+
         // Options and the Details
         this.options = options || {
             debugging: false,
-        };
-    };
+        }
+    }
 
     init(ctx) {
         this.ctx = ctx;
+        this.ctx.imageSmoothingEnabled = false;
         this.startInput();
         this.timer = new Timer();
-    };
+    }
 
     start() {
         this.running = true;
@@ -34,7 +38,7 @@ class GameEngine {
             requestAnimFrame(gameLoop, this.ctx.canvas);
         };
         gameLoop();
-    };
+    }
 
     startInput() {
         const getXandY = e => ({
@@ -74,46 +78,89 @@ class GameEngine {
 
         this.ctx.canvas.addEventListener("keydown", event => this.keys[event.key] = true);
         this.ctx.canvas.addEventListener("keyup", event => this.keys[event.key] = false);
-    };
+    }
 
-    addEntity(entity) {
-        this.entities.push(entity);
-    };
+    addEntity(entity, layer) {
+        this.entities[layer].push(entity);
+    }
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
 
-        // Draw latest things first
-        for (let i = this.entities.length - 1; i >= 0; i--) {
-            this.entities[i].draw(this.ctx, this);
+        let i = Layers.BACKGROUND;
+        this.ctx.drawImage(sprite("background.png"), 0, 0, 144, 256, 0, 0, 144 * 3, 256 * 3);
+
+        i = Layers.PIPES;
+        for (let j = this.entities[i].length - 1; j >= 0; j--) {
+            this.entities[i][j].draw(this.ctx);
         }
-    };
+        i = Layers.GROUND;
+        for (let j = this.entities[i].length - 1; j >= 0; j--) {
+            this.entities[i][j].draw(this.ctx);
+        }
+        i = Layers.BIRD;
+        for (let j = this.entities[i].length - 1; j >= 0; j--) {
+            this.entities[i][j].draw(this.ctx);
+        }
+        i = Layers.UI;
+        for (let j = this.entities[i].length - 1; j >= 0; j--) {
+            this.entities[i][j].draw(this.ctx);
+        }
+    }
 
     update() {
-        let entitiesCount = this.entities.length;
+        let layer = this.entities[Layers.BACKGROUND];
+        let entitiesCount = layer.length;
 
+        layer = this.entities[Layers.PIPES];
+        entitiesCount = layer.length;
         for (let i = 0; i < entitiesCount; i++) {
-            let entity = this.entities[i];
-
+            let entity = layer[i];
+            if (!entity.removeFromWorld) {
+                entity.update();
+            }
+        }
+        layer = this.entities[Layers.GROUND];
+        entitiesCount = layer.length;
+        for (let i = 0; i < entitiesCount; i++) {
+            let entity = layer[i];
+            if (!entity.removeFromWorld) {
+                entity.update();
+            }
+        }
+        layer = this.entities[Layers.BIRD];
+        entitiesCount = layer.length;
+        for (let i = 0; i < entitiesCount; i++) {
+            let entity = layer[i];
+            if (!entity.removeFromWorld) {
+                entity.update();
+            }
+        }
+        layer = this.entities[Layers.UI];
+        entitiesCount = layer.length;
+        for (let i = 0; i < entitiesCount; i++) {
+            let entity = layer[i];
             if (!entity.removeFromWorld) {
                 entity.update();
             }
         }
 
-        for (let i = this.entities.length - 1; i >= 0; --i) {
-            if (this.entities[i].removeFromWorld) {
-                this.entities.splice(i, 1);
+
+        //Delete eligible entities
+        for(let layer of this.entities) {
+            for (let i = layer.length - 1; i >= 0; --i) {
+                if (layer[i].removeFromWorld) {
+                    layer.splice(i, 1); // Delete element at i
+                }
             }
         }
-    };
+    }
 
     loop() {
         this.clockTick = this.timer.tick();
         this.update();
         this.draw();
-    };
+    }
+}
 
-};
-
-// KV Le was here :)
