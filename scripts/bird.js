@@ -44,7 +44,7 @@ class Bird extends Entity {
                 if(!this.keyPressedPreviously) {
                     //If this is a new press
                     if(this.dead) {
-                       if(timeInSecondsBetween(this.deathTime, Date.now()) > 1.1) {
+                       if(timeInSecondsBetween(this.deathTime, Date.now()) > 1) {
                            return this.restartGame();
                        }
                     }
@@ -101,10 +101,8 @@ class Bird extends Entity {
             setTimeout(() => playSound("die"), 250);
         }
 
-        //Display restart message after a second
-        setTimeout(() => {
-            gameEngine.addEntity(restartMessage(), Layers.UI);
-        }, 1000);
+        //Display restart message
+        gameEngine.addEntity(restartMessage(), Layers.UI);
     }
 
     addPoint() {
@@ -167,13 +165,23 @@ function playerInteract() {
 }
 
 function restartMessage() {
-    let message = new UIText(null, "PRESS SPACE OR W TO RESTART", 24);
+    let message = new UIText(null, "", 24);
+    message.text = "PRESS SPACE OR W TO RESTART";
+
     gameEngine.ctx.font = message.font;
     let pos = new Vec2();
-    let textWidth = gameEngine.ctx.measureText(message.content).width;
+    let textWidth = gameEngine.ctx.measureText(message.text).width;
     pos.x = width / 2 - textWidth / 2;
     pos.y = (height - 156) / 2 - message.size / 2;
     message.pos = pos;
+
+    message.createdTime = Date.now();
+    message.updateFn = function() {
+        if(timeInSecondsBetween(Date.now(), this.createdTime) > 1) {
+            this.content = this.text;
+        }
+    }
+
     message.restartMessage = true;
     return message;
 }
