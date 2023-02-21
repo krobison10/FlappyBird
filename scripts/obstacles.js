@@ -20,7 +20,7 @@ class Pipe extends Obstacle {
     static height = 160;
     static startSpeed = 120;
     static curSpeed = 0;
-    static maxSpeed = 240;
+    static maxSpeed = 220;
     static speedChange = 0.9;
     constructor(sprite, pos) {
         super(sprite, pos, new Dimension(26, 160));
@@ -56,7 +56,7 @@ class PipeManager {
     static maxGap = 175;
     static minCenter = 150;
     static maxCenter = 466;
-    static variance = 300;
+    static variance = 250;
 
     constructor() {
         this.centerPoint = 306; // true center

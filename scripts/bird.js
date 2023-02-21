@@ -1,6 +1,6 @@
 class Bird extends Entity {
-    static jumpVel = -580;
-    static gravity = 2000;
+    static jumpVel = -620;
+    static gravity = 2200;
     constructor() {
         super(new Vec2(100, 298), new Dimension(17, 12));
         this.spritesheet = sprite("bird.png");
