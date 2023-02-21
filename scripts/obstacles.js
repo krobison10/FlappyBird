@@ -18,7 +18,7 @@ class Obstacle extends Entity {
 
 class Pipe extends Obstacle {
     static height = 160;
-    static startSpeed = 100;
+    static startSpeed = 120;
     static curSpeed = 0;
     constructor(sprite, pos) {
         super(sprite, pos, new Dimension(26, 160));

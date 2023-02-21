@@ -36,7 +36,7 @@ class Bird extends Entity {
             if(!this.dead && (this.checkCollide() || this.pos.y < 0)) {
                 this.dead = true;
                 Pipe.curSpeed = 0;
-                this.velocity.y = 20;
+                this.velocity.y = 25;
             }
             if(this.pos.y + this.size.h > 600) {
                 this.dead = true;
