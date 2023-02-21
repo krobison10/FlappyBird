@@ -98,3 +98,9 @@ class Dimension {
 function timeInSecondsBetween(timeA, timeB) {
     return Math.abs(timeA - timeB) / 1000;
 }
+
+class RGBColor {
+    constructor(r, g, b) {
+        Object.assign(this, {r, g, b});
+    }
+}

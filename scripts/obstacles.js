@@ -20,10 +20,13 @@ class Pipe extends Obstacle {
     static height = 160;
     static startSpeed = 120;
     static curSpeed = 0;
+    static maxSpeed = 220;
+    static speedChange = 0.8;
     constructor(sprite, pos) {
         super(sprite, pos, new Dimension(26, 160));
         this.boundingBox =
             new BoundingBox(new Vec2(this.pos.x, this.pos.y), new Dimension(this.size.w, this.size.h));
+        this.passed = false;
     }
 
     update() {
@@ -33,6 +36,11 @@ class Pipe extends Obstacle {
         this.pos.x -= Pipe.curSpeed * gameEngine.clockTick;
         this.boundingBox =
             new BoundingBox(new Vec2(this.pos.x, this.pos.y), new Dimension(this.size.w, this.size.h));
+
+        if(!this.passed && this.pos.x < bird.pos.x && this.sprite === sprite("pipe_upper.png")) {
+            bird.addPoint();
+            this.passed = true;
+        }
     }
 
     draw(ctx) {
@@ -42,8 +50,10 @@ class Pipe extends Obstacle {
 }
 
 class PipeManager {
-    static spacing = 200;
+    static spacing = 210;
     static gap = 160;
+    static minGap = 155;
+    static maxGap = 175;
     static minCenter = 150;
     static maxCenter = 466;
     static variance = 300;
@@ -66,10 +76,12 @@ class PipeManager {
     }
 
     update() {
+
         if(this.latestPipe.pos.x < width) {
             let oldX = this.latestPipe.pos.x;
-
             this.centerPoint = PipeManager.pickNewCenterPoint(this.centerPoint);
+            PipeManager.gap = PipeManager.minGap + randomInt(PipeManager.maxGap - PipeManager.minGap);
+
 
             this.latestPipe = new Pipe(sprite("pipe_upper.png"),
                 new Vec2(

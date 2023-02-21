@@ -1,6 +1,6 @@
 @font-face {
     font-family: flappy;
-    src: url(BotsmaticOutline-anZg.ttf);
+    src: url(flappy.ttf);
 }
 
 body {
@@ -34,7 +34,7 @@ h1 {
 
 #gameWorld {
     border-radius: 5px;
-    background-color: rgb(3, 190, 252);
+    background-color: rgb(101, 181, 193);
 }
 
 h4 {
