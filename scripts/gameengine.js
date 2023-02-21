@@ -15,9 +15,6 @@ class GameEngine {
         this.wheel = null;
         this.keys = {};
 
-        this.camera = new SceneManager(this);
-        this.addEntity(this.camera, Layers.UI);
-
         // Options and the Details
         this.options = options || {
             debugging: false,

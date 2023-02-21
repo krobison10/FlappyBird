@@ -10,8 +10,8 @@ declareAssets([
 	"sprites/background.png",
 	"sprites/ground.png",
 	"sprites/bird.png",
-	"sprites/tube_top.png",
-	"sprites/tube_bottom.png"
+	"sprites/pipe_upper.png",
+	"sprites/pipe_lower.png"
 	]);
 
 ASSET_MANAGER.downloadAll(() => {
@@ -25,7 +25,6 @@ ASSET_MANAGER.downloadAll(() => {
 
 const bird = new Bird();
 gameEngine.addEntity(bird, Layers.BIRD);
-
 
 
 function declareAssets(paths) {

@@ -4,13 +4,14 @@ class Bird extends Entity {
     constructor() {
         super(new Vec2(100, 298), new Dimension(17, 12));
         this.spritesheet = sprite("bird.png");
-        this.animations = [];
-        this.animations[0] = new Animator(this.spritesheet, 0, 0,
+
+        this.aliveAnimation = new Animator(this.spritesheet, 0, 0,
             this.size.w, this.size.h,
             4, .1, 0, false, true);
-        this.animations[1] = new Animator(this.spritesheet, 17, 0,
+        this.deadAnimation = new Animator(this.spritesheet, 17, 0,
             this.size.w, this.size.h,
             1, .1, 0, false, true);
+
         this.velocity = new Vec2(0, 0);
 
         this.dead = false;
@@ -70,9 +71,9 @@ class Bird extends Entity {
 
     draw(ctx) {
         if(!this.dead) {
-            this.animations[0].drawFrame(gameEngine.clockTick, ctx, this.pos.x, this.pos.y, global_scale);
+            this.aliveAnimation.drawFrame(gameEngine.clockTick, ctx, this.pos.x, this.pos.y, global_scale);
         } else {
-            this.animations[1].drawFrame(gameEngine.clockTick, ctx, this.pos.x, this.pos.y, global_scale);
+            this.deadAnimation.drawFrame(gameEngine.clockTick, ctx, this.pos.x, this.pos.y, global_scale);
         }
         this.boundingBox.draw(ctx);
     }

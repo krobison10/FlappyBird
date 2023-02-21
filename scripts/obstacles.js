@@ -17,6 +17,7 @@ class Obstacle extends Entity {
 }
 
 class Pipe extends Obstacle {
+    static height = 160;
     static startSpeed = 100;
     static curSpeed = 0;
     constructor(sprite, pos) {
@@ -41,27 +42,55 @@ class Pipe extends Obstacle {
 }
 
 class PipeManager {
-    static pipeGap = 200;
+    static spacing = 200;
+    static gap = 160;
+    static minCenter = 150;
+    static maxCenter = 466;
+    static variance = 300;
+
     constructor() {
-        this.latestPipe = new Pipe(sprite("tube_top.png"),
-            new Vec2(width, -290));
+        this.centerPoint = 306; // true center
+
+        this.latestPipe = new Pipe(sprite("pipe_upper.png"),
+            new Vec2(
+                width,
+                this.centerPoint - (PipeManager.gap / 2) - Pipe.height * global_scale));
+
+        gameEngine.addEntity(new Pipe(sprite("pipe_lower.png"),
+            new Vec2(
+                width,
+                this.centerPoint + PipeManager.gap / 2)), Layers.PIPES);
+
         gameEngine.addEntity(this.latestPipe, Layers.PIPES);
 
-        gameEngine.addEntity(new Pipe(sprite("tube_bottom.png"),
-            new Vec2(width, 390)), Layers.PIPES);
     }
 
     update() {
         if(this.latestPipe.pos.x < width) {
             let oldX = this.latestPipe.pos.x;
 
-            this.latestPipe = new Pipe(sprite("tube_top.png"),
-                new Vec2(this.latestPipe.pos.x + PipeManager.pipeGap, -290));
-            gameEngine.addEntity(this.latestPipe, Layers.PIPES);
+            this.centerPoint = PipeManager.pickNewCenterPoint(this.centerPoint);
 
-            gameEngine.addEntity(new Pipe(sprite("tube_bottom.png"),
-                new Vec2(oldX + PipeManager.pipeGap, 390)), Layers.PIPES);
+            this.latestPipe = new Pipe(sprite("pipe_upper.png"),
+                new Vec2(
+                    oldX + PipeManager.spacing,
+                    this.centerPoint - (PipeManager.gap / 2) - Pipe.height * global_scale));
+
+
+            gameEngine.addEntity(new Pipe(sprite("pipe_lower.png"),
+                new Vec2(
+                    oldX + PipeManager.spacing,
+                    this.centerPoint + PipeManager.gap / 2)), Layers.PIPES);
+
+            gameEngine.addEntity(this.latestPipe, Layers.PIPES);
         }
+    }
+
+    static pickNewCenterPoint(old) {
+        let lower = Math.max(old - PipeManager.variance, PipeManager.minCenter);
+        let upper = Math.min(old + PipeManager.variance, PipeManager.maxCenter);
+
+        return lower + randomInt(upper - lower);
     }
 
 }
