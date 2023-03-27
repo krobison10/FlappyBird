@@ -1,5 +1,5 @@
 # Flappy Bird Clone
-A 2D JavaScript web clone of the infamous mobile game "Flappy Bird"
+A 2D JavaScript web clone of the infamous mobile game "Flappy Bird".
 
 <br>
 
@@ -27,8 +27,7 @@ This game was developed in about a day as an extra credit assignment for my Game
 
 ## 🎥 Demo
 
-
-
+![](flappy.gif)
 
 <br>
 
